@@ -1,0 +1,5 @@
+export const TASKS_TYPE = "TASKS_TYPE";
+export const CURRENT_TASK_TYPE = "CURRENT_TASK_TYPE";
+export const MODAL_TYPE = "MODAL_TYPE";
+export const BTN_NAME_TYPE = "BTN_NAME_TYPE";
+export const EDIT_TASKS_REDUCER = "EDIT_TASKS_REDUCER";

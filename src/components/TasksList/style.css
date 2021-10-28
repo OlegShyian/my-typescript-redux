@@ -1,0 +1,41 @@
+ul {
+    margin: 0;
+    padding: 0;
+}
+
+.list__titles {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background: #f3f3f3;
+    word-wrap: break-word;
+}
+
+li {
+    padding: 5px 10px;
+    list-style: none;
+    box-sizing: border-box;
+}
+
+ul li div {
+    width: 15%;
+    text-align: center;
+    cursor: pointer;
+}
+
+.second__element {
+    width: 40%;
+}
+
+.page__conteiner {
+    margin-top: auto;
+}
+
+.page {
+    padding: 5px;
+    margin: 2px;
+    border: 2px solid black;
+    cursor: pointer;
+    box-sizing: border-box;
+}

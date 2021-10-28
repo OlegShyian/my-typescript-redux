@@ -1,0 +1,18 @@
+
+
+.btn__addTask {
+    margin: 10px;
+    font-size: medium;
+    border-radius: 5px;
+}
+
+.tasks__navigation{
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin: 10px;
+}
+
+.tasks__navigation input {
+    padding: 3px;
+}
