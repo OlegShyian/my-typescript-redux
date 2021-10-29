@@ -1,16 +1,18 @@
 import {combineReducers} from "redux"
-import tasksReducer from "./tasksReducer"
 import modalReducer from "./modalReducer"
 import taskReducer from "./taskReducer"
 import btnNameReducer from "./btnNameReducer"
-import editTasksReducer from "./editTasksReducer"
+import searchQueryReducer from "./searchQueryReducer"
+import authReducer from "./authReducer"
+import userReducer from "./userReducer"
 
 const reducers = combineReducers({
-    tasks: tasksReducer,
+    user: userReducer,
     isModal: modalReducer,
     currentTask: taskReducer,
     btnName: btnNameReducer,
-    editTasks: editTasksReducer
+    searchQuery: searchQueryReducer,
+    isAuth: authReducer
 });
 
 

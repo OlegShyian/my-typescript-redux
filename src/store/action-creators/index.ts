@@ -1,11 +1,12 @@
 import { Dispatch } from "redux";
-import { TASKS_TYPE, CURRENT_TASK_TYPE, MODAL_TYPE, BTN_NAME_TYPE, EDIT_TASKS_REDUCER } from "../constans";
+import { IUser } from "../../types/types";
+import { USER_TYPE, CURRENT_TASK_TYPE, MODAL_TYPE, BTN_NAME_TYPE, SEARCH_QUERY_TYPE, IS_AUTH_TYPE } from "../constans";
 
-export const saveTasks = (tasks: any[]) => {
+export const saveUserTasks = (user: IUser ) => {
     return (dispatch: Dispatch) => {
         dispatch({
-            type: TASKS_TYPE,
-            payload: tasks
+            type: USER_TYPE,
+            payload: user
         })
     }
 }
@@ -38,11 +39,20 @@ export const saveBtnName = (name: string) => {
     }
 }
 
-export const saveEtidTasks = (array: any) => {
+export const saveSearchQuery = (query: string) => {
     return (dispatch: Dispatch) => {
         dispatch({
-            type: EDIT_TASKS_REDUCER,
-            payload: array
+            type: SEARCH_QUERY_TYPE,
+            payload: query
+        })
+    }
+}
+
+export const saveAuthStatus = (isAuth: boolean) => {
+    return (dispatch: Dispatch) => {
+        dispatch({
+            type: IS_AUTH_TYPE,
+            payload: isAuth
         })
     }
 }

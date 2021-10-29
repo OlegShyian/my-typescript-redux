@@ -1,14 +1,14 @@
 import './App.css';
+import { BrowserRouter } from "react-router-dom";
 import NavBar from './components/NavBar';
-import MainContent from './pages/MainContent';
+import AppRouter from './components/AppRouter';
 
 const App: React.FC = () => {
-  
   return (
-    <div className="App">
+    <BrowserRouter>
       <NavBar />
-      <MainContent/>
-    </div>
+      <AppRouter />
+    </BrowserRouter>
   );
 }
 

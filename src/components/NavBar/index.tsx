@@ -1,10 +1,11 @@
 import React from 'react'
 import "./style.css"
 
-const NavBar: React.FC = () => {
+const NavBar: React.FC = ({ children }) => {
+
     return (
-        <nav>
-            <div className={"nav__wraper"}>
+        <nav className="nav__wrapper">
+            <div>
                 <h1>
                     TODO List Demo App
                 </h1>

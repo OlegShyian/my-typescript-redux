@@ -8,31 +8,43 @@ import "./style.css"
 
 
 const TasksList = () => {
-    const { tasks, isModal, editTasks } = useSelector((store: SelectorProps) => store);
-    const { saveTasks, saveModalState, saveCurrentTask, saveBtnName } = bindActionCreators(actionCreators, useDispatch());
+    const { user, isModal, searchQuery } = useSelector((store: SelectorProps) => store);
+    const tasks = user.tasks;
+    const { saveUserTasks, saveModalState, saveCurrentTask, saveBtnName } = bindActionCreators(actionCreators, useDispatch());
     const [outputTasks, setOutputTasks] = useState(tasks);
     const [mainCheckState, setMainCheckState] = useState(false);
 
     const [currentPage, setCurrentPage] = useState(1);
     const tasksLimit = 3;
     const pageNumbers = useMemo(() => {
-        const totalPages = Math.ceil(editTasks.length / tasksLimit);
+        const totalPages = Math.ceil(outputTasks.length / tasksLimit);
 
         return new Array(totalPages).fill("").map((el, ind) => ind + 1);
-    }, [editTasks.length]);
+    }, [outputTasks]);
 
     useEffect(() => {
-        if (editTasks.length) {
-            setOutputTasks(editTasks);
+        const result = tasks.filter((task: ITask) => task.name.toLowerCase().includes(searchQuery.toLowerCase()));
+        setOutputTasks(result);
+        if (searchQuery) {
+            setCurrentPage(Math.ceil(result.length / tasksLimit));
         }
-    }, [editTasks])
+    }, [tasks, searchQuery])
 
     useEffect(() => {
-        const arr = editTasks.filter((task: ITask, ind: number) => (ind >= (currentPage - 1) * tasksLimit && ind < currentPage * tasksLimit));;
+        const arr = outputTasks.filter((task: ITask, ind: number) => (ind >= (currentPage - 1) * tasksLimit && ind < currentPage * tasksLimit));;
         const mainStatus = arr.every((task: ITask) => task.checked === true);
 
         setMainCheckState(mainStatus);
-    }, [editTasks, currentPage]);
+    }, [outputTasks, currentPage]);
+
+    useEffect(() => {
+        const save = {
+            [user.name]: { password: user.password, tasks: user.tasks }
+        }
+        const getUsers = localStorage.getItem("users") || "{}";
+        const users = JSON.parse(getUsers);
+        localStorage.setItem("users", JSON.stringify({ ...users, ...save }));
+    }, [user]);
 
     const openCurenTask = (id: number) => {
         saveCurrentTask(tasks.find((task: ITask) => task.id === id));
@@ -42,22 +54,25 @@ const TasksList = () => {
 
     const handleChangeMainCheckStatus = () => {
         setMainCheckState(!mainCheckState);
-        saveTasks(tasks.map((task: ITask, ind: number) =>
-            (ind >= (currentPage - 1) * tasksLimit && ind < currentPage * tasksLimit)
-                ? ({ ...task, checked: !mainCheckState })
-                : task));
+        saveUserTasks({
+            ...user,
+            tasks: tasks.map((task: ITask, ind: number) =>
+                (ind >= (currentPage - 1) * tasksLimit && ind < currentPage * tasksLimit)
+                    ? ({ ...task, checked: !mainCheckState })
+                    : task)
+        });
     }
 
     const removeCurrentTask = (id: number) => {
         const question = window.confirm("After press 'Remove' you completely remove your task, are you sure?")
 
         if (question) {
-            const editedTasks = editTasks.filter((task: ITask) => task.id !== id);
+            const editedTasks = outputTasks.filter((task: ITask) => task.id !== id);
             const mainStatus = editedTasks.every((task: ITask) => task.checked === false);
 
-            saveTasks(editedTasks);
+            saveUserTasks({ ...user, tasks: editedTasks });
             setMainCheckState(mainStatus);
-            setCurrentPage(Math.floor(editedTasks.length / tasksLimit));
+            setCurrentPage(Math.ceil(editedTasks.length / tasksLimit));
         }
     }
 
@@ -69,11 +84,11 @@ const TasksList = () => {
         const mainStatus = tasksOnPage.every((task: ITask) => task.checked === true);
 
         setMainCheckState(mainStatus);
-        saveTasks(editedTasks);
+        saveUserTasks({ ...user, tasks: editedTasks });
     }
 
     const handleChangePage = (number: number) => {
-        const arr = editTasks.filter((task: ITask, ind: number) => (ind >= (number - 1) * tasksLimit && ind < number * tasksLimit));
+        const arr = outputTasks.filter((task: ITask, ind: number) => (ind >= (number - 1) * tasksLimit && ind < number * tasksLimit));
         const mainStatus = arr.every((task: ITask) => task.checked === true);
 
         setCurrentPage(number);
@@ -90,11 +105,8 @@ const TasksList = () => {
     }
 
     const handlerSort = (field: string) => {
-        if (field === "index") {
-            saveTasks(tasks.reverse());
-        } else {
-            saveTasks(tasks.sort(sortTasks(field)))
-        }
+        setOutputTasks(tasks.sort(sortTasks(field)));
+        saveUserTasks({ ...user, tasks: tasks.sort(sortTasks(field)) });
     }
 
 
@@ -114,7 +126,7 @@ const TasksList = () => {
                             onChange={handleChangeMainCheckStatus}
                         />
                     </div>
-                    <div onClick={() => handlerSort("index")}>#</div>
+                    <div>#</div>
                     <div
                         className="second__element"
                         onClick={() => handlerSort("name")}

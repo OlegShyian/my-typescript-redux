@@ -1,4 +1,4 @@
-import { EDIT_TASKS_REDUCER } from "../constans"
+import { SEARCH_QUERY_TYPE } from "../constans"
 
 interface ISearch {
     type: string,
@@ -7,9 +7,9 @@ interface ISearch {
 
 
 
-const reducer = (state = [], action: ISearch) => {
+const reducer = (state ="" , action: ISearch) => {
     switch (action.type) {
-        case EDIT_TASKS_REDUCER: 
+        case SEARCH_QUERY_TYPE: 
             return action.payload
         default:
             return state;

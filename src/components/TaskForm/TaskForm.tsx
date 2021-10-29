@@ -8,10 +8,14 @@ import "./style.css"
 
 
 const TaskForm = () => {
-    const { tasks, currentTask, btnName } = useSelector((store: SelectorProps) => store);
-    const { saveTasks, saveModalState, saveCurrentTask } = bindActionCreators(actionCreators, useDispatch());
+    const { user, currentTask, btnName } = useSelector((store: SelectorProps) => {
+        console.log(store);
+        return store;
+    });
+    const { saveUserTasks, saveModalState, saveCurrentTask } = bindActionCreators(actionCreators, useDispatch());
     const [taskName, setTaskName] = useState<string>("");
     const [taskStatus, setTaskStatus] = useState<string>("");
+    const tasks = user.tasks;
 
     useEffect(() => {
         if (btnName === "Save") {
@@ -19,6 +23,12 @@ const TaskForm = () => {
             setTaskStatus(currentTask.status);
         }
     }, [btnName, currentTask])
+
+    // useEffect(() => {
+    //     const newUser = { [user]: { password: password, tasks: [] } };
+    //     localStorage.setItem("users", JSON.stringify({ ...users, ...newUser }));
+    // }, [])
+
 
     const editTasks = (taskName: string, taskStatus: string) => {
         return tasks.map((task: ITask) => task.id === currentTask.id
@@ -37,15 +47,15 @@ const TaskForm = () => {
         if (taskName && taskStatus) {
             if (btnName === "Save") {
                 const result = editTasks(taskName, taskStatus);
-                saveTasks(result);
+                saveUserTasks({...user, tasks: result});
                 saveCurrentTask(null);
             } else {
-                saveTasks([{
+                saveUserTasks({...user, tasks: [{
                     name: taskName,
                     status: taskStatus,
                     id: Date.now(),
                     checked: false
-                }, ...tasks]);
+                }, ...tasks]});
             }
             resetValues();
         } else {

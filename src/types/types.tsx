@@ -6,18 +6,25 @@ export interface ITask {
 }
 
 export interface IStore {
-    tasks: any[],
+    user: IUser,
     isModal: boolean,
     currentTask: ITask,
-    btnName: string
+    btnName: string,
+    isAuth: boolean
 }
 
-export interface SelectorProps {
+export interface IUser {
     tasks: any[];
+    name: string;
+    password: string;
+} 
+
+export interface SelectorProps {
+    user: IUser;
     currentTask: ITask;
     btnName: string;
     isModal: boolean;
-    editTasks: any[];
+    searchQuery: string;
 }
 
 export interface BtnName {
@@ -37,5 +44,5 @@ export interface ITaskReducer {
 
 export interface ITasksReducer {
     type: string,
-    payload: any[]
+    payload: IUser
 }
