@@ -1,6 +1,7 @@
 ul {
     margin: 0;
     padding: 0;
+    min-height: 135px;
 }
 
 .list__titles {
@@ -18,18 +19,31 @@ li {
     box-sizing: border-box;
 }
 
+
+
 ul li div {
     width: 15%;
     text-align: center;
     cursor: pointer;
 }
 
+.title__first__element{
+    width: 15%;
+    cursor:auto;
+    text-align: center;
+}
+
 .second__element {
     width: 40%;
 }
 
+.wrapper__pagination{
+    display: flex;
+    justify-content: space-between;
+}
+
 .page__conteiner {
-    margin-top: auto;
+    display: flex;
 }
 
 .page {
@@ -37,5 +51,16 @@ ul li div {
     margin: 2px;
     border: 2px solid black;
     cursor: pointer;
+    font-size: 18px;
+}
+
+.pagination__numbers{
+    min-width: 30px;
+    padding: 5px;
+    margin: 2px;
+    border: 2px solid black;
+    cursor: pointer;
+    border-radius: 50%;
     box-sizing: border-box;
+    font-size: 18px;
 }

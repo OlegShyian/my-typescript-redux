@@ -2,37 +2,78 @@ import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { actionCreators } from '../../store';
-import { SelectorProps } from '../../types/types';
+import { IStore } from '../../types/types';
 import Modal from '../Modal/Modal';
 import "./style.css"
 
-const NavTasks = () => {
-    const { isModal , user} = useSelector((store: SelectorProps) => store);
+const NavTasks: React.FC = () => {
+    const { isModal, user, isRemoveBtn } = useSelector((store: IStore) => store);
     const [searchQuery, setSearchQuery] = useState("");
-    const { saveModalState, saveBtnName, saveSearchQuery } = bindActionCreators(actionCreators, useDispatch());
+    const {
+        saveUserTasks,
+        saveModalState,
+        saveBtnName,
+        saveSearchQuery,
+        saveRemoveStatusBtn
+    } = bindActionCreators(actionCreators, useDispatch());
 
     useEffect(() => {
         const timer = setTimeout(() => {
             saveSearchQuery(searchQuery);
         }, 1000)
         return () => clearTimeout(timer);
-    }, [searchQuery, user.tasks], );
+    }, [searchQuery, user.tasks, saveSearchQuery]);
+
+    const handleRemoveAllChecked = () => {
+        const { remove, saved } = user.tasks.reduce((accum, task) => task.checked
+            ? { ...accum, remove: [...accum.remove, task.name] }
+            : { ...accum, saved: [...accum.saved, task] },
+            { remove: [], saved: [] })
+
+        const question = window.confirm(`After press 'OK' you completely remove your tasks: { ${remove} }, are you sure?`)
+
+        if (question) {
+            console.log();
+
+            saveUserTasks({ ...user, tasks: saved });
+            saveRemoveStatusBtn(false);
+            const save = {
+                [user.name]: { password: user.password, tasks: saved }
+            }
+            const getUsers = localStorage.getItem("users") || "{}";
+            const users = JSON.parse(getUsers);
+            localStorage.setItem("users", JSON.stringify({ ...users, ...save }));
+        }
+    }
+
 
     return (
-        <div className="tasks__navigation">
-            {isModal ? <Modal /> : null}
-            <input
-                type="text"
-                placeholder="Seach in the tasks..."
-                onChange={(e) => setSearchQuery(e.target.value)}
-            />
-            <button
-                className="btn__addTask"
-                onClick={() => {
-                    saveModalState(true);
-                    saveBtnName("Create");
-                }}
-            >Add Task</button>
+        <div className="wrapper__tasks_navigation">
+            <div>
+                {isRemoveBtn
+                    ?
+                    <button
+                        onClick={handleRemoveAllChecked}
+                        className="remove__button"
+                    >remove &#10004;</button>
+                    :
+                    null}
+            </div>
+            <div className="tasks__navigation">
+                {isModal ? <Modal /> : null}
+                <input
+                    type="text"
+                    placeholder="Seach in the tasks..."
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                />
+                <button
+                    className="btn__addTask"
+                    onClick={() => {
+                        saveModalState(true);
+                        saveBtnName("Create");
+                    }}
+                >Add Task</button>
+            </div>
         </div>
     )
 }

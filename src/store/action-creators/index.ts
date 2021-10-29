@@ -1,6 +1,6 @@
 import { Dispatch } from "redux";
 import { IUser } from "../../types/types";
-import { USER_TYPE, CURRENT_TASK_TYPE, MODAL_TYPE, BTN_NAME_TYPE, SEARCH_QUERY_TYPE, IS_AUTH_TYPE } from "../constans";
+import { USER_TYPE, CURRENT_TASK_TYPE, MODAL_TYPE, BTN_NAME_TYPE, SEARCH_QUERY_TYPE, IS_AUTH_TYPE, IS_REMOVE_BTN } from "../constans";
 
 export const saveUserTasks = (user: IUser ) => {
     return (dispatch: Dispatch) => {
@@ -53,6 +53,15 @@ export const saveAuthStatus = (isAuth: boolean) => {
         dispatch({
             type: IS_AUTH_TYPE,
             payload: isAuth
+        })
+    }
+
+}
+export const saveRemoveStatusBtn = (isRemoveBtn: boolean) => {
+    return (dispatch: Dispatch) => {
+        dispatch({
+            type: IS_REMOVE_BTN,
+            payload: isRemoveBtn
         })
     }
 }

@@ -1,4 +1,8 @@
-
+.wrapper__tasks_navigation{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
 
 .btn__addTask {
     margin: 10px;
@@ -10,9 +14,32 @@
     display: flex;
     justify-content: flex-end;
     align-items: center;
-    margin: 10px;
 }
 
 .tasks__navigation input {
     padding: 3px;
+}
+
+.remove__button {
+    margin-left: 10px;
+    text-decoration: none;
+    display: inline-block;
+    color: white;
+    border-radius: 10px;
+    font-family: 'Montserrat', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    background-image: linear-gradient(to right, #9EEFE1 0%, #4830F0 51%, #9EEFE1 100%);
+    background-size: 200% auto;
+    box-shadow: 0 0 20px rgba(0, 0, 0, .1);
+    transition: .5s;
+    cursor: pointer;
+    outline: none;
+    width: 100px;
+    box-sizing: border-box;
+    text-align: center;
+}
+
+.remove__button:hover {
+    background-position: right center;
 }

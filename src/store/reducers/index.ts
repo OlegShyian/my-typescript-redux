@@ -5,6 +5,7 @@ import btnNameReducer from "./btnNameReducer"
 import searchQueryReducer from "./searchQueryReducer"
 import authReducer from "./authReducer"
 import userReducer from "./userReducer"
+import isRemoveBtn from "./removeBtnReducer"
 
 const reducers = combineReducers({
     user: userReducer,
@@ -12,7 +13,8 @@ const reducers = combineReducers({
     currentTask: taskReducer,
     btnName: btnNameReducer,
     searchQuery: searchQueryReducer,
-    isAuth: authReducer
+    isAuth: authReducer,
+    isRemoveBtn: isRemoveBtn,
 });
 
 

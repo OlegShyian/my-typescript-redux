@@ -2,19 +2,19 @@ import React, { MouseEvent, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { actionCreators } from '../../store';
-import { ITask, SelectorProps } from '../../types/types';
+import { IStore, ITask } from '../../types/types';
 import "./style.css"
 
 
 
-const TaskForm = () => {
-    const { user, currentTask, btnName } = useSelector((store: SelectorProps) => {
+const TaskForm: React.FC = () => {
+    const { user, currentTask, btnName } = useSelector((store: IStore) => {
         console.log(store);
         return store;
     });
     const { saveUserTasks, saveModalState, saveCurrentTask } = bindActionCreators(actionCreators, useDispatch());
-    const [taskName, setTaskName] = useState<string>("");
-    const [taskStatus, setTaskStatus] = useState<string>("");
+    const [taskName, setTaskName] = useState("");
+    const [taskStatus, setTaskStatus] = useState("");
     const tasks = user.tasks;
 
     useEffect(() => {
@@ -23,12 +23,6 @@ const TaskForm = () => {
             setTaskStatus(currentTask.status);
         }
     }, [btnName, currentTask])
-
-    // useEffect(() => {
-    //     const newUser = { [user]: { password: password, tasks: [] } };
-    //     localStorage.setItem("users", JSON.stringify({ ...users, ...newUser }));
-    // }, [])
-
 
     const editTasks = (taskName: string, taskStatus: string) => {
         return tasks.map((task: ITask) => task.id === currentTask.id
@@ -47,15 +41,17 @@ const TaskForm = () => {
         if (taskName && taskStatus) {
             if (btnName === "Save") {
                 const result = editTasks(taskName, taskStatus);
-                saveUserTasks({...user, tasks: result});
+                saveUserTasks({ ...user, tasks: result });
                 saveCurrentTask(null);
             } else {
-                saveUserTasks({...user, tasks: [{
-                    name: taskName,
-                    status: taskStatus,
-                    id: Date.now(),
-                    checked: false
-                }, ...tasks]});
+                saveUserTasks({
+                    ...user, tasks: [{
+                        name: taskName,
+                        status: taskStatus,
+                        id: Date.now(),
+                        checked: false
+                    }, ...tasks]
+                });
             }
             resetValues();
         } else {

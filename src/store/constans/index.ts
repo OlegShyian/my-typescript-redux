@@ -4,3 +4,4 @@ export const MODAL_TYPE = "MODAL_TYPE";
 export const BTN_NAME_TYPE = "BTN_NAME_TYPE";
 export const SEARCH_QUERY_TYPE = "SEARCH_QUERY_TYPE";
 export const IS_AUTH_TYPE = "IS_AUTH_TYPE";
+export const IS_REMOVE_BTN = "IS_REMOVE_BTN";

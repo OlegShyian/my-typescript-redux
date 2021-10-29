@@ -6,26 +6,21 @@ export interface ITask {
 }
 
 export interface IStore {
-    user: IUser,
-    isModal: boolean,
-    currentTask: ITask,
-    btnName: string,
-    isAuth: boolean
+    user: IUser;
+    currentTask: ITask;
+    btnName: string;
+    searchQuery: string;
+    isModal: boolean;
+    isRemoveBtn: boolean;
+    isAuth: boolean,
 }
 
 export interface IUser {
     tasks: any[];
     name: string;
     password: string;
-} 
-
-export interface SelectorProps {
-    user: IUser;
-    currentTask: ITask;
-    btnName: string;
-    isModal: boolean;
-    searchQuery: string;
 }
+
 
 export interface BtnName {
     type: string,
