@@ -1,0 +1,27 @@
+.wrapper__pagination {
+    display: flex;
+    justify-content: space-between;
+}
+
+.page__conteiner {
+    display: flex;
+}
+
+.page {
+    padding: 5px;
+    margin: 2px;
+    border: 2px solid black;
+    cursor: pointer;
+    font-size: 18px;
+}
+
+.pagination__numbers {
+    min-width: 30px;
+    padding: 5px;
+    margin: 2px;
+    border: 2px solid black;
+    cursor: pointer;
+    border-radius: 50%;
+    box-sizing: border-box;
+    font-size: 18px;
+}

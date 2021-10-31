@@ -2,13 +2,17 @@ import React from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { IStore } from '../types/types';
 import NavTasks from '../components/NavTasks';
-import TasksList from '../components/TasksList/TasksList';
+import TasksList from '../components/TasksList';
 import { bindActionCreators } from 'redux';
 import { actionCreators } from '../store';
 
-const MainContent: React.FC = () => {
+const TasksPage: React.FC = () => {
     const { user } = useSelector((store: IStore) => store)
-    const { saveAuthStatus } = bindActionCreators(actionCreators, useDispatch());
+    const { saveAuthStatus, } = bindActionCreators(actionCreators, useDispatch());
+
+    const logOff = () => {
+        saveAuthStatus(false);
+    }
 
     return (
         <div>
@@ -16,7 +20,7 @@ const MainContent: React.FC = () => {
                 <button
                     style={{ marginLeft: "auto" }}
                     className="href__button"
-                    onClick={() => saveAuthStatus(false)}
+                    onClick={logOff}
                 >log off</button>
                 <NavTasks />
                 {user.tasks.length
@@ -30,4 +34,4 @@ const MainContent: React.FC = () => {
     )
 }
 
-export default MainContent
+export default TasksPage

@@ -1,7 +1,7 @@
 import React from 'react'
 import "./style.css"
 
-const NavBar: React.FC = ({ children }) => {
+const NavBar: React.FC = () => {
 
     return (
         <nav className="nav__wrapper">

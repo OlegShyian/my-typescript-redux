@@ -1,6 +1,6 @@
 import { Dispatch } from "redux";
 import { IUser } from "../../types/types";
-import { USER_TYPE, CURRENT_TASK_TYPE, MODAL_TYPE, BTN_NAME_TYPE, SEARCH_QUERY_TYPE, IS_AUTH_TYPE, IS_REMOVE_BTN } from "../constans";
+import { USER_TYPE, CURRENT_TASK_TYPE, IS_MODAL_TYPE, BTN_NAME_TYPE, SEARCH_QUERY_TYPE, IS_AUTH_TYPE, IS_REMOVE_BTN } from "../constans";
 
 export const saveUserTasks = (user: IUser ) => {
     return (dispatch: Dispatch) => {
@@ -11,8 +11,7 @@ export const saveUserTasks = (user: IUser ) => {
     }
 }
 
-
-export const saveCurrentTask = (task: any) => {
+export const saveCurrentTask = (task: object) => {
     return (dispatch: Dispatch) => {
         dispatch({
             type: CURRENT_TASK_TYPE,
@@ -24,7 +23,7 @@ export const saveCurrentTask = (task: any) => {
 export const saveModalState = (isModal: boolean) => {
     return (dispatch: Dispatch) => {
         dispatch({
-            type: MODAL_TYPE,
+            type: IS_MODAL_TYPE,
             payload: isModal
         })
     }

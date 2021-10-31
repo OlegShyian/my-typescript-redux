@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { actionCreators } from '../../store';
-import { IStore } from '../../types/types';
+import { IStore, ITask } from '../../types/types';
 import Modal from '../Modal/Modal';
 import "./style.css"
 
@@ -14,8 +14,7 @@ const NavTasks: React.FC = () => {
         saveModalState,
         saveBtnName,
         saveSearchQuery,
-        saveRemoveStatusBtn
-    } = bindActionCreators(actionCreators, useDispatch());
+        saveRemoveStatusBtn } = bindActionCreators(actionCreators, useDispatch());
 
     useEffect(() => {
         const timer = setTimeout(() => {
@@ -23,6 +22,11 @@ const NavTasks: React.FC = () => {
         }, 1000)
         return () => clearTimeout(timer);
     }, [searchQuery, user.tasks, saveSearchQuery]);
+
+    useEffect(() => {
+        const isRemove = user.tasks.some((task: ITask) => task.checked);
+        saveRemoveStatusBtn(isRemove);
+    }, [user.tasks, saveRemoveStatusBtn])
 
     const handleRemoveAllChecked = () => {
         const { remove, saved } = user.tasks.reduce((accum, task) => task.checked
@@ -33,10 +37,7 @@ const NavTasks: React.FC = () => {
         const question = window.confirm(`After press 'OK' you completely remove your tasks: { ${remove} }, are you sure?`)
 
         if (question) {
-            console.log();
-
             saveUserTasks({ ...user, tasks: saved });
-            saveRemoveStatusBtn(false);
             const save = {
                 [user.name]: { password: user.password, tasks: saved }
             }

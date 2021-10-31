@@ -1,11 +1,15 @@
 import React, { MouseEvent, useEffect, useState } from 'react'
+import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom'
+import { bindActionCreators } from 'redux';
+import { actionCreators } from '../store';
 import "./style.css"
 
 
 const RegistrationPage: React.FC = () => {
     const [user, setUser] = useState("");
     const [password, setPassword] = useState("");
+    const { saveAuthStatus, saveUserTasks } = bindActionCreators(actionCreators, useDispatch());
 
     useEffect(() => {
         if (!localStorage.getItem("users")) {
@@ -18,14 +22,18 @@ const RegistrationPage: React.FC = () => {
         if (!user || !password) return alert("Login and password fields cannot be empty");
         const storage: any = localStorage.getItem("users");
         const users = JSON.parse(storage);
-        console.log(users);
-
 
         if (users[user]) {
             alert("User is already register");
         } else {
             const newUser = { [user]: { password: password, tasks: [] } };
             localStorage.setItem("users", JSON.stringify({ ...users, ...newUser }));
+            saveAuthStatus(true);
+            saveUserTasks({
+                name: user,
+                password: password,
+                tasks: []
+            });
             setUser("");
             setPassword("");
         }

@@ -8,10 +8,7 @@ import "./style.css"
 
 
 const TaskForm: React.FC = () => {
-    const { user, currentTask, btnName } = useSelector((store: IStore) => {
-        console.log(store);
-        return store;
-    });
+    const { user, currentTask, btnName } = useSelector((store: IStore) => store);
     const { saveUserTasks, saveModalState, saveCurrentTask } = bindActionCreators(actionCreators, useDispatch());
     const [taskName, setTaskName] = useState("");
     const [taskStatus, setTaskStatus] = useState("");
@@ -42,7 +39,7 @@ const TaskForm: React.FC = () => {
             if (btnName === "Save") {
                 const result = editTasks(taskName, taskStatus);
                 saveUserTasks({ ...user, tasks: result });
-                saveCurrentTask(null);
+                saveCurrentTask({});
             } else {
                 saveUserTasks({
                     ...user, tasks: [{

@@ -1,9 +1,9 @@
 import { Modal } from "../../types/types";
-import { MODAL_TYPE } from "../constans";
+import { IS_MODAL_TYPE } from "../constans";
 
 const reducer = (state = false, action: Modal) => {
     switch (action.type) {
-        case MODAL_TYPE:
+        case IS_MODAL_TYPE:
             return action.payload;
         default:
             return state;
