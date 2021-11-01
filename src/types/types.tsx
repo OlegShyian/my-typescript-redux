@@ -16,7 +16,7 @@ export interface IStore {
 }
 
 export interface IUser {
-    tasks: any[];
+    tasks: ITask[];
     name: string;
     password: string;
 }
@@ -41,3 +41,4 @@ export interface ITasksReducer {
     type: string,
     payload: IUser
 }
+

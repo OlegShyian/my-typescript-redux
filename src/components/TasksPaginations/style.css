@@ -15,6 +15,10 @@
     font-size: 18px;
 }
 
+.page__hover {
+    background-color: rgb(228, 224, 224);
+}
+
 .pagination__numbers {
     min-width: 30px;
     padding: 5px;

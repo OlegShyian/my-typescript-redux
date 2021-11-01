@@ -6,6 +6,8 @@ import { IStore, ITask } from '../../types/types';
 import Modal from '../Modal/Modal';
 import "./style.css"
 
+interface IRemove {remove: string[], saved: ITask[] }
+
 const NavTasks: React.FC = () => {
     const { isModal, user, isRemoveBtn } = useSelector((store: IStore) => store);
     const [searchQuery, setSearchQuery] = useState("");
@@ -29,7 +31,7 @@ const NavTasks: React.FC = () => {
     }, [user.tasks, saveRemoveStatusBtn])
 
     const handleRemoveAllChecked = () => {
-        const { remove, saved } = user.tasks.reduce((accum, task) => task.checked
+        const { remove, saved } = user.tasks.reduce((accum: IRemove, task: ITask) => task.checked
             ? { ...accum, remove: [...accum.remove, task.name] }
             : { ...accum, saved: [...accum.saved, task] },
             { remove: [], saved: [] })

@@ -52,10 +52,10 @@ const TasksList: React.FC = () => {
         if (currentPage > user.tasks.length / tasksLimit) {
             setCurrentPage(Math.ceil(user.tasks.length / tasksLimit));
         }
-    }, [currentPage, user.tasks.length])
+    }, [currentPage, user.tasks.length, tasksLimit])
 
     const openCurenTask = (id: number) => {
-        saveCurrentTask(user.tasks.find((task: ITask) => task.id === id));
+        saveCurrentTask(user.tasks.find((task: ITask) => task.id === id) || []);
         saveModalState(true);
         saveBtnName("Save");
     }

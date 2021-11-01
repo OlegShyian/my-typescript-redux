@@ -1,8 +1,8 @@
-import React, { useMemo, useState } from 'react'
+import React, { useMemo } from 'react'
 import "./style.css"
 
 interface IPaginationProps {
-    outputTasks: any[];
+    outputTasks: object[];
     tasksLimit: number
     setTasksLimit: (arg: number) => void;
     currentPage: number;
@@ -21,7 +21,6 @@ const TasksPagination: React.FC<IPaginationProps> = ({
         const totalPages = Math.ceil(outputTasks.length / tasksLimit);
         return new Array(totalPages).fill("").map((el, ind) => ind + 1);
     }, [outputTasks, tasksLimit]);
-
 
     const handleSetLimit = (limit: number) => {
         if (currentPage > outputTasks.length / limit) {
