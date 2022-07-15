@@ -1,15 +1,13 @@
-import React from 'react'
-import TaskForm from '../TaskForm/TaskForm'
-import "./style.css"
-
-
+import React from 'react';
+import TaskForm from '../TaskForm/TaskForm';
+import './style.css';
 
 const Modal: React.FC = () => {
     return (
         <div className="myModal">
-            <TaskForm/>
+            <TaskForm />
         </div>
-    )
-}
+    );
+};
 
-export default Modal
+export default Modal;

@@ -1,25 +1,20 @@
-import React, { useMemo } from 'react'
-import "./style.css"
+import React, { useMemo } from 'react';
+import './style.css';
 
 interface IPaginationProps {
     outputTasks: object[];
-    tasksLimit: number
+    tasksLimit: number;
     setTasksLimit: (arg: number) => void;
     currentPage: number;
     setCurrentPage: (arg: number) => void;
 }
 
-const TasksPagination: React.FC<IPaginationProps> = ({
-    outputTasks,
-    tasksLimit,
-    setTasksLimit,
-    currentPage,
-    setCurrentPage }) => {
-
+const TasksPagination: React.FC<IPaginationProps> = ({ outputTasks, tasksLimit, setTasksLimit, currentPage, setCurrentPage }) => {
     const tasksOnPage = [3, 5, 10];
+
     const pageNumbers = useMemo(() => {
         const totalPages = Math.ceil(outputTasks.length / tasksLimit);
-        return new Array(totalPages).fill("").map((el, ind) => ind + 1);
+        return new Array(totalPages).fill(null).map((_el, ind) => ind + 1);
     }, [outputTasks, tasksLimit]);
 
     const handleSetLimit = (limit: number) => {
@@ -27,34 +22,26 @@ const TasksPagination: React.FC<IPaginationProps> = ({
             setCurrentPage(Math.ceil(outputTasks.length / limit));
         }
         setTasksLimit(limit);
-    }
-
+    };
 
     return (
         <div className="wrapper__pagination">
             <div className="page__conteiner">
-                {pageNumbers.map(currentPage =>
-                    <span
-                        key={currentPage}
-                        className="page"
-                        onClick={() => setCurrentPage(currentPage)}
-                    >
+                {pageNumbers.map((currentPage) => (
+                    <span key={currentPage} className="page" onClick={() => setCurrentPage(currentPage)}>
                         {currentPage}
                     </span>
-                )}
+                ))}
             </div>
             <div className="tasks__limit">
-                {tasksOnPage.map((limit: number, ind) =>
-                    <button
-                        key={ind}
-                        className="pagination__numbers"
-                        onClick={() => handleSetLimit(limit)}
-                    >{limit}</button>
-                )}
-
+                {tasksOnPage.map((limit: number, ind) => (
+                    <button key={ind} className="pagination__numbers" onClick={() => handleSetLimit(limit)}>
+                        {limit}
+                    </button>
+                ))}
             </div>
         </div>
-    )
-}
+    );
+};
 
-export default TasksPagination
+export default TasksPagination;

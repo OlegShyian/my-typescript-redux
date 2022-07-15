@@ -1,11 +1,11 @@
-import {combineReducers} from "redux"
-import modalReducer from "./modalReducer"
-import taskReducer from "./taskReducer"
-import btnNameReducer from "./btnNameReducer"
-import searchQueryReducer from "./searchQueryReducer"
-import authReducer from "./authReducer"
-import userReducer from "./userReducer"
-import isRemoveBtn from "./removeBtnReducer"
+import { combineReducers } from 'redux';
+import modalReducer from './modalReducer';
+import taskReducer from './taskReducer';
+import btnNameReducer from './btnNameReducer';
+import searchQueryReducer from './searchQueryReducer';
+import authReducer from './authReducer';
+import userReducer from './userReducer';
+import isRemoveBtn from './removeBtnReducer';
 
 const reducers = combineReducers({
     user: userReducer,
@@ -16,6 +16,5 @@ const reducers = combineReducers({
     isAuth: authReducer,
     isRemoveBtn: isRemoveBtn,
 });
-
 
 export default reducers;
